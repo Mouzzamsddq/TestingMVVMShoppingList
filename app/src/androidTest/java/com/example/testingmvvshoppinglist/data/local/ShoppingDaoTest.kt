@@ -15,7 +15,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 @SmallTest
@@ -25,7 +24,6 @@ class ShoppingDaoTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
     private lateinit var shoppingDatabase: ShoppingDatabase
     private lateinit var shoppingDao: ShoppingDao
-
 
     @Before
     fun setup() {
@@ -54,7 +52,7 @@ class ShoppingDaoTest {
 
     @Test
     fun insertShoppingItem() = runTest {
-        val shoppingItem = ShoppingItems(
+        val shoppingItem = ShoppingItem(
             name = "name",
             amount = 1,
             price = 1f,
@@ -72,7 +70,7 @@ class ShoppingDaoTest {
 
     @Test
     fun deleteShoppingItem() = runTest {
-        val shoppingItem = ShoppingItems(
+        val shoppingItem = ShoppingItem(
             name = "name",
             amount = 1,
             price = 1f,
@@ -86,21 +84,21 @@ class ShoppingDaoTest {
 
     @Test
     fun observerTotalPriceSum() = runTest {
-        val shoppingItem1 = ShoppingItems(
+        val shoppingItem1 = ShoppingItem(
             name = "name",
             amount = 100,
             price = 0.5f,
             image = "url",
             id = 1
         )
-        val shoppingItem2 = ShoppingItems(
+        val shoppingItem2 = ShoppingItem(
             name = "name",
             amount = 3,
             price = 5.5f,
             image = "url",
             id = 2
         )
-        val shoppingItem3 = ShoppingItems(
+        val shoppingItem3 = ShoppingItem(
             name = "name",
             amount = 0,
             price = 100f,
