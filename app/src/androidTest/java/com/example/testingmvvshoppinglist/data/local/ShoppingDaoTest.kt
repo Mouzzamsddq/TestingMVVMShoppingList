@@ -29,6 +29,11 @@ class ShoppingDaoTest {
 
     @Before
     fun setup() {
+        /**
+         * ... why we use allowMainThreadQueries()?
+         * ... we don't want that test cases are dependent on each other that is why we
+         * ... run the test cases on main thread so that it will execute one after another.
+         */
         shoppingDatabase = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
             ShoppingDatabase::class.java
@@ -59,7 +64,7 @@ class ShoppingDaoTest {
         shoppingDao.insert(shoppingItem)
         /**
          * ...We are using one class provided by google to get the live data synchronously because live
-         * ... data is working asynchronously and we don't want that live data
+         * ... data is working asynchronously and we don't want that test cases are dependent on each other
          */
         val allShoppingItem = shoppingDao.observerAllShoppingItems().getOrAwaitValue()
         assertThat(allShoppingItem).contains(shoppingItem)
