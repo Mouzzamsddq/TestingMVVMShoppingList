@@ -1,11 +1,15 @@
 package com.example.testingmvvshoppinglist.di
 
 import android.content.Context
+import android.database.DefaultDatabaseErrorHandler
 import androidx.room.Room
+import com.example.testingmvvshoppinglist.data.local.ShoppingDao
 import com.example.testingmvvshoppinglist.data.local.ShoppingDatabase
-import com.example.testingmvvshoppinglist.data.remote.responses.PixaBayApi
+import com.example.testingmvvshoppinglist.data.remote.PixaBayApi
 import com.example.testingmvvshoppinglist.other.Constants.BASE_URL
 import com.example.testingmvvshoppinglist.other.Constants.DATABASE_NAME
+import com.example.testingmvvshoppinglist.repositories.DefaultShoppingRepository
+import com.example.testingmvvshoppinglist.repositories.ShoppingRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,6 +32,19 @@ object AppModule {
         ShoppingDatabase::class.java,
         DATABASE_NAME
     ).build()
+
+    /**
+     * ... We don't need to provide repository because dagger automatically creates repository instance because we
+     * ... provided dao and api instances but in view model we are injecting shopping repo which is an interface so that
+     * ... we have to provide repo
+     */
+
+    @Singleton
+    @Provides
+    fun provideDefaultShoppingRepository(
+        dao: ShoppingDao,
+        api: PixaBayApi
+    ) = DefaultShoppingRepository(dao, api) as ShoppingRepository
 
     @Singleton
     @Provides

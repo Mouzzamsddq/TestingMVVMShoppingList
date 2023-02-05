@@ -48,7 +48,7 @@ class FakeShoppingRepository : ShoppingRepository {
         refreshLiveData()
     }
 
-    override suspend fun observeAllShoppingItems(): LiveData<List<ShoppingItem>> {
+    override fun observeAllShoppingItems(): LiveData<List<ShoppingItem>> {
         return observableShoppingItem
     }
 
